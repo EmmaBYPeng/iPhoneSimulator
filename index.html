@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>iPhone Simulator</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body id="body">
+
+<div id="currentTime">
+	<canvas id="time"></canvas>
+</div>
+
+<div class="appscreen">
+	<img src="images/pages_appscreen.jpg" id="pagesScreen"/>
+</div>
+
+<div class="appscreen">
+	<img src="images/numbers_appscreen.jpg" id="numbersScreen"/>
+</div>
+
+<div class="appscreen">
+	<img src="images/music_appscreen.jpg" id="musicScreen"/>
+</div>
+
+<div class="appscreen">
+	<img src="images/messages_appscreen.jpg" id="messagesScreen"/>
+</div>
+
+<div id="apps">
+	<img src="images/pages.png" id="pages" class="app" draggable="true" ondragstart="drag(event)"/>
+
+	<img src="images/numbers.png" id="numbers" class="app" draggable="true" ondragstart="drag(event)"/>
+			
+	<img src="images/messages.png" id="messages" class="app" draggable="true" ondragstart="drag(event)"/>
+		
+	<img src="images/music.png" id="music" class="app" draggable="true" ondragstart="drag(event)"/>
+<div>
+	
+<div class="home">
+	<svg id="returnHome"> 
+		<rect width="50" height="50" style="opacity:0"/>
+	</svg>
+</div>
+
+<div id="grids_c1" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>	
+</div>
+
+<div id="grids_c2" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>	
+</div>
+
+<div id="grids_c3" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>	
+</div>
+
+<div id="grids_c4" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>
+	<div class="grid"></div>	
+</div>
+
+<script type="text/javascript">
+	var c = document.getElementById("time");
+	var ctx = c.getContext("2d")
+	ctx.textAlign = "center";
+
+	var setTime = setInterval(function() {myTimer()}, 1000);
+
+	function myTimer() {
+		var date = new Date();
+		var x = c.width / 2;
+		var y = c.height / 2;
+		ctx.clearRect(0, 0, c.width, c.height);
+		ctx.font = "30pt Times";
+		ctx.strokeText(date.toLocaleTimeString(), x, 0.8*y);
+		ctx.font = "15pt Times";
+		ctx.strokeText(date.toDateString(), x, 1.2*y);
+	}
+
+	var pages = document.getElementById("pages");
+	pages.onclick = function() {
+		//location.href = "pages.html";
+		document.getElementById("pagesScreen").style.visibility = "visible";
+	}
+
+	var numbers = document.getElementById("numbers");
+	numbers.onclick = function() {
+		//location.href = "numbers.html";
+		document.getElementById("numbersScreen").style.visibility = "visible";
+		
+	}
+
+	var music = document.getElementById("music");
+	music.onclick = function() {
+		//location.href = "music.html";
+		document.getElementById("musicScreen").style.visibility = "visible";
+	}
+
+	var messages = document.getElementById("messages");
+	messages.onclick = function() {
+		//location.href = "messages.html";
+		document.getElementById("messagesScreen").style.visibility = "visible";
+	}
+
+	var home = document.getElementById("returnHome");
+	home.onclick = function() {
+		//location.href = "index.html";
+		document.getElementById("pagesScreen").style.visibility = "hidden";
+		document.getElementById("numbersScreen").style.visibility = "hidden";
+		document.getElementById("musicScreen").style.visibility = "hidden";
+		document.getElementById("messagesScreen").style.visibility = "hidden";
+	}
+
+	function allowDrop(ev) {
+		ev.preventDefault();
+	}
+
+	function drop(ev) {
+		ev.preventDefault();
+		var data = ev.dataTransfer.getData("Text");
+		ev.target.appendChild(document.getElementById(data));
+	}
+
+	function drag(ev) {
+		ev.dataTransfer.setData("Text", ev.target.id);
+	}
+</script>
+</body>
+</html>
